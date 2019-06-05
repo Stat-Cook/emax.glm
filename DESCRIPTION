@@ -7,7 +7,7 @@ Description: Implementation of EM regression of general linear models.
     The package currently supports Poisson and Logistic regression with variable weights, with underlying theory included in the vignettes. 
     New users are recommended to look at the 'em.glm' and 'small.em' functions- the outputs of which are supported by AIC, BIC,  and logLik calls.
     Several plot functions have been included for useful diagnostics and model exploration.
-License: GPL-2
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
