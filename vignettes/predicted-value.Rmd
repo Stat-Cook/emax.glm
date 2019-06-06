@@ -1,10 +1,10 @@
 ---
 title: "The EM GLM algorithm - Proof of predicted values"
-author: "R. M. Cook"
+author: "Robert M. Cook"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{The EM GLM algorithm - Proof of predicted values}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +12,9 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 8*0.62
 )
 ```
 

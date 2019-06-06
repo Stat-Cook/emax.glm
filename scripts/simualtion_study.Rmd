@@ -1,6 +1,6 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Simulation Study"
+author: "Robert M. Cook"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,21 +9,24 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 8*0.62
 )
 ```
-
 To explore the reliability of the technique, we will establish the model reliability with a short simulation study.  This study will deal with purely the Poisson implementation and look at the effect of sample size, number of competing models, the size of the parameter space, and the sample noise.
 
 To do this, we first establish a routine for simualting data.  Each simulation comprises an input feature space, $X$ of *n* by *k* varibles drawn from a a standard normal distributon, an exposure (to check weight is being properly accounted for), and a series of randomly generated parameters, $B_1 .. B_n$, each drawn from a normal distribution with st dev. 0.5.  The input data is evenly split into $K$  classes (grouped by index in the data set) with each group possesing its own parameter set $B_K$.
 
-The linear response, $ X B$ has an extra noise term added on prior to being converted to a $\lambda$ value by the $exp$ function.  The *rpois* function then links the exposure scaled $\lambda$ values to a Poisson variable.
+The linear response, $X B$ has an extra noise term added on prior to being converted to a $\lambda$ value by the $exp$ function.  The *rpois* function then links the exposure scaled $\lambda$ values to a Poisson variable.
 
 
-``` {r}
+``` {r, message = F}
 
 library(emax.glm)
 library(pROC)
@@ -68,7 +71,6 @@ The general data processing flow is:
 
 
 ``` {r}
-set.seed(1001)
 
 
 {
@@ -87,11 +89,76 @@ set.seed(1001)
   fit.em <- em.glm(x=sim$x, y = sim$y, weight = sim$exposure, b.init = params, K = K, debug = F, param_errors = T)
   
 }
+```
+
+
+``` {r}
+
+
+
+matcher <- function(fit, sim){
+  
+  q <- length(sim$B)
+
+  match <- sapply(
+    fit$params, 
+    function(i) apply(
+      matrix(c(i) - unlist(sim$B), nrow = q, byrow = T)^2, 
+      1, 
+      sum
+    )
+  )    
+  
+  i.match <- match
+  j.match <- match
+
+  for (i in 1:q){
+    i.match[i, ] <- i
+    j.match[, i] <- i
+  }
+
+
+  i.opts <- combn(c(i.match), q)
+  i.bool <- apply(i.opts, 2, function(i) length(unique(i)) == q)
+  j.opts <- combn(c(j.match), q)
+  j.bool <- apply(j.opts, 2, function(i) length(unique(i)) == q)
+
+
+  cost <- apply(
+    combn(c(match), q)[,i.bool & j.bool],
+    2,sum
+  )
+  
+  mm <- which(cost == min(cost))
+  
+  
+  matched <- data.frame(
+    i = i.opts[, i.bool & j.bool][,mm],
+    j = j.opts[, i.bool & j.bool][,mm]
+  )
+  
+  return(matched)
+}
+
+
+
+matched <- matcher(fit.em, sim)
+
+sapply(
+  1:dim(matched)[1],
+  function(i) {
+    m <- unlist(matched[i, ])
+    sum((fit.em$params[[m[2]]] - sim$B[[m[1]]])^2)
+  }
+)
+matched
+```
+
+```{r}
 
 
 
 ```
-
 
 The EM algorith may not fit models in the same oder as generated, so we check which is more likely by redividing the data by the known class.  With the pairing between fitted and simulated models found, we can then check consistency between known and fitted values and the average ROC values.
 
@@ -115,6 +182,8 @@ r <- sapply(
 )
 
 
+
+
 t.stats <- sapply(
   1:K,
   function(i) (sim$B[[idx[[i]] ]] - fit.em$params[[i]]) / fit.em$errors[[i]]
@@ -133,59 +202,54 @@ Combining the simulation, fit and analysis into a sinlge function means we can p
 ``` {r}
 
 K <- 2
+# 
+# simulation <- function(k = 5, n = 5000, e = 0.0001){
+#   tryCatch(
+#     {
+#       sim <- generate_data(n, k, noise = e, K = K)
+#       
+#       small.sim <- small.em(x = sim$x, y = sim$y, b.init = "random", weight = sim$exposure, K = K, debug = F, maxiter=25, maxiter.NR = 20, repeats = 20, noise=2)
+#       
+#       params <- select_best(small.sim)
+#       fit.em <- em.glm(x=sim$x, y = sim$y, weight = sim$exposure, b.init = params, K = K, debug = F, param_errors = T)
+#       
+#       idx  <- lapply(
+#         1:2,
+#         function(i) which.max(apply(
+#           fit.em$class_probs[sim$class.id == i, ],
+#           2,
+#           sum
+#         ))
+#       )
+#       
+#       r <- sapply(
+#         1:K,
+#         function(i) roc(
+#           as.numeric(sim$class.id == 1),
+#           fit.em$class_probs[,i]
+#         )$auc
+#       )
+#       
+#       t.stats <- sapply(
+#         1:K,
+#         function(i) (sim$B[[idx[[i]] ]] - fit.em$params[[i]]) / fit.em$errors[[i]]
+#       )
+#       
+#       return(list(
+#         "Agrement" = mean(abs(t.stats) < qnorm(1 - 0.025 / (k*K))),
+#         "Ave. ROC" = mean(r),
+#          "ll" = logLik(fit.em, x=sim$x, y=sim$y, weight = sim$exposure)
+#       ))
+#     },
+#     error = function(e) return(list(
+#       "Agrement" = "-",
+#       "Ave. ROC" = "-",
+#        "ll" = "-"
+#     ))
+#   )
+# }
+# 
 
-simulation <- function(k = 5, n = 5000, e = 0.0001){
-  tryCatch(
-    {
-      sim <- generate_data(n, k, noise = e, K = K)
-      
-      small.sim <- small.em(x = sim$x, y = sim$y, b.init = "random", weight = sim$exposure, K = K, debug = F, maxiter=25, maxiter.NR = 20, repeats = 20, noise=2)
-      
-      params <- select_best(small.sim)
-      fit.em <- em.glm(x=sim$x, y = sim$y, weight = sim$exposure, b.init = params, K = K, debug = F, param_errors = T)
-      
-      idx  <- lapply(
-        1:2,
-        function(i) which.max(apply(
-          fit.em$class_probs[sim$class.id == i, ],
-          2,
-          sum
-        ))
-      )
-      
-      r <- sapply(
-        1:K,
-        function(i) roc(
-          as.numeric(sim$class.id == 1),
-          fit.em$class_probs[,i]
-        )$auc
-      )
-      
-      t.stats <- sapply(
-        1:K,
-        function(i) (sim$B[[idx[[i]] ]] - fit.em$params[[i]]) / fit.em$errors[[i]]
-      )
-      
-      return(list(
-        "Agrement" = mean(abs(t.stats) < qnorm(1 - 0.025 / (k*K))),
-        "Ave. ROC" = mean(r),
-         "ll" = logLik(fit.em, x=sim$x, y=sim$y, weight = sim$exposure)
-      ))
-    },
-    error = function(e) return(list(
-      "Agrement" = "-",
-      "Ave. ROC" = "-",
-       "ll" = "-"
-    ))
-  )
-}
-
-a <- tryCatch(
-  log(12),
-  error = function(e) return (12)
-)
-
-a
 
 ```
 
