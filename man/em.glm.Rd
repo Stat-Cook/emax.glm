@@ -9,7 +9,7 @@ competing models to be fit is set by \emph{K}.}
 em.glm(x, y, b.init = "random,", weight = c(1), K = 2,
   family = poisson, method = "numeric", maxiter = 50,
   maxiter.NR = Inf, tol.1 = 1e-08, tol.2 = 1e-08, noise = 0.2,
-  debug = F, param_errors = F)
+  debug = FALSE, param_errors = FALSE)
 }
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
@@ -45,4 +45,11 @@ An 'em.glm' object containing the class parameters, and class weights.
 }
 \description{
 It is recommend users first call the \strong{em.small} command to run small warm up trails to explore the parameter space.
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+summary(m)
+
 }

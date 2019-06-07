@@ -13,8 +13,8 @@ residuals.em.glm <- function(object, x, y, weight = c(1), type="deviance", ...){
   mu <- predict(object, x=x, y=y, weight=weight, type="rate")
 
   d.deviances <- list(
-    "poisson" = function(y, mu, weight) dpois(y, y, log = T) - dpois(y, weight * mu, log = T),
-    "binomial" = function(y, mu, weight) dbinom(y, weight, y / weight, log = T) - dbinom(y, weight, mu, log = T)
+    "poisson" = function(y, mu, weight) dpois(y, y, log = TRUE) - dpois(y, weight * mu, log = TRUE),
+    "binomial" = function(y, mu, weight) dbinom(y, weight, y / weight, log = TRUE) - dbinom(y, weight, mu, log = TRUE)
   )
 
   if (type == "deviance"){

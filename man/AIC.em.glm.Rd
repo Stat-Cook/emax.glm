@@ -16,6 +16,12 @@
 }
 \value{
 The AIC score of the model.
+#' @examples
+y <- c(AirPassengers)
+n <- length(y)
+x <- as.matrix(rep(1, n))
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+AIC(m)
 }
 \description{
 Calcualte the AIC of the em.glm model

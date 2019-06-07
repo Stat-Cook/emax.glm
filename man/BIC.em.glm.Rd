@@ -17,3 +17,11 @@ The BIC score of the model.
 \description{
 Calcualte the BIC of the em.glm model
 }
+\examples{
+y <- c(AirPassengers)
+n <- length(y)
+x <- as.matrix(rep(1, n))
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+BIC(m)
+
+}

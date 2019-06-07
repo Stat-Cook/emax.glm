@@ -33,15 +33,15 @@ where $l_{sat.}$ is the 'saturated model' such that each value of $\mu_i = y_i$ 
 
 The deviance residuals are implemented as:
 
-``` {r, eval = F}
+``` {r, eval = FALSE}
 rho <- x %*% B
 mu <- family()$linkinv(rho)
 
 # Poisson deviance
-abs(y - w * mu) * sqrt(2 * (dpois(y, y, log = T) - dpois(y, w * mu, log = T)))
+abs(y - w * mu) * sqrt(2 * (dpois(y, y, log = T) - dpois(y, w * mu, log = TRUE)))
 
 # Binomial deviance
-abs(y - w * mu) * sqrt(2 * (dbinom(y, w, y / w, log = T) - dbinom(y, w, mu, log = T)))
+abs(y - w * mu) * sqrt(2 * (dbinom(y, w, y / w, log = T) - dbinom(y, w, mu, log = TRUE)))
 ```
 
 where `r 'x'` is the input data, `r 'B'` is the optimal parameters, `r 'w'` is the weights, `r 'y'` is the target values  and `r 'family'` is (currently) either `r 'poisson'` or `r 'binom'`.

@@ -2,6 +2,11 @@
 #'
 #' @param em.glm An 'em.glm' object.
 #' @inheritParams em.glm
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' dispersion(m, x, y)
 #'
 #' @export
 dispersion <- function(em.glm, x, y, weight){
@@ -12,8 +17,8 @@ dispersion <- function(em.glm, x, y, weight){
   d <- dim(x)
 
   # TODO - Is this true?  Can you do underdispersion and overdispersion?
-  overdisp_p_value <- pchisq(stat, d[1] - d[2], lower.tail = F)
-  underdisp_p_value <- pchisq(stat, d[1] - d[2], lower.tail = T)
+  overdisp_p_value <- pchisq(stat, d[1] - d[2], lower.tail = FALSE)
+  underdisp_p_value <- pchisq(stat, d[1] - d[2], lower.tail = TRUE)
 
   list(
     "ssr" = stat,

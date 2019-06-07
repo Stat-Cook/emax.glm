@@ -3,6 +3,13 @@
 #' @inheritParams logLik.em.glm
 #' @param alpha Scaling factor for inforamtion criteria (2 or ln(\emph{n}) for AIC and BIC respectively).
 #'
+#'#' @examples
+#' y <- c(AirPassengers)
+#' n <- length(y)
+#' x <- as.matrix(rep(1, n))
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' IC(m, 2)
+#'
 #' @export
 IC.em.glm <- function(em.glm, alpha){
 
@@ -17,6 +24,12 @@ IC.em.glm <- function(em.glm, alpha){
 #' @inheritParams  logLik.em.glm
 #' @inheritParams stats::BIC
 #' @return The BIC score of the model.
+#' @examples
+#' y <- c(AirPassengers)
+#' n <- length(y)
+#' x <- as.matrix(rep(1, n))
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' BIC(m)
 #'
 #' @export
 BIC.em.glm <- function(object, ...){
@@ -31,6 +44,12 @@ BIC.em.glm <- function(object, ...){
 #' @inheritParams  logLik.em.glm
 #' @inheritParams stats::AIC
 #' @return The AIC score of the model.
+#' #' @examples
+#' y <- c(AirPassengers)
+#' n <- length(y)
+#' x <- as.matrix(rep(1, n))
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' AIC(m)
 #'
 #' @export
 AIC.em.glm <- function(object, ..., k = 2){

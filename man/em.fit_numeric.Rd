@@ -5,7 +5,7 @@
 \title{Carry our the Newton-Raphson optimization of the parameters for given weights via numeric approximations,}
 \usage{
 em.fit_numeric(b, x, y, class_probs, weight = c(1), tol = 1e-08,
-  debug = F, family = poisson(), maxiter = Inf)
+  debug = FALSE, family = poisson(), maxiter = Inf)
 }
 \arguments{
 \item{b}{The starting parameters.}

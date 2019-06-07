@@ -6,7 +6,12 @@
 \alias{emax.glm-package}
 \title{General linear regression via  Expectation-Maximization.}
 \description{
-A package for fitting Expectation Maximization algorithms for general linear models.
-    The package currently supports Poisson and Logistic regression with variable weights.
-    New users are recommended to look at the 'em.glm' and 'small.em' functions.
+Implementation of Expectation Maximization (EM) regression of general linear models.
+    The package currently supports Poisson and Logistic regression with variable weights, with underlying theory included in the vignettes. 
+    New users are recommended to look at the 'em.glm()' and 'small.em()' functions - the outputs of which are supported by 'AIC()', 'BIC()',  and 'logLik()' calls.
+    Several plot functions have been included for useful diagnostics and model exploration.
+}
+\author{
+\strong{Maintainer}: Robert M. Cook \email{robert.cook@bcu.ac.uk} (0000-0003-3343-8271)
+
 }

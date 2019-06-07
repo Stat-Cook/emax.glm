@@ -6,8 +6,8 @@
 \usage{
 small.em(x, y, b.init = "fit", weight = c(1), K = 2, maxiter = 5,
   tol.1 = 1e-04, tol.2 = 1e-04, noise = 0.2, sample.size = 500,
-  repeats = 5, debug = F, family = "poisson", method = "numeric",
-  maxiter.NR = 20)
+  repeats = 5, debug = FALSE, family = "poisson",
+  method = "numeric", maxiter.NR = 20)
 }
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
@@ -45,4 +45,16 @@ A 'small.em' list containing the parameters, weights, log likelihood and BIC val
 }
 \description{
 Carry out several short EM fits to test for optimal starting locations.
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+warm_up <- small.em(x = x, y = y, K = 2, b.init = "random", sample.size = 50)
+summary(warm_up)
+
+params <- select_best(warm_up)
+
+m <- em.glm(x = x, y = y, K = 2, b.init = params)
+summary(m)
 }

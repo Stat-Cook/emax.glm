@@ -34,7 +34,7 @@ plot.em.glm.summary <- function(x, ...){
 #' @inheritParams plot.em.glm.summary
 #'
 #' @export
-plot.em.glm <- function(x, known_params = NULL, plot_type = lines, add = F, ...){
+plot.em.glm <- function(x, known_params = NULL, plot_type = lines, add = FALSE, ...){
 
   k <- max(c(
     length(x$params[[1]]),

@@ -6,9 +6,14 @@
 #' @param maxiter Maximum number of NR steps to take.
 #' @param tol The tolerance to repeat the Newton-Raphson optimization till.
 #' @return The parameter values on convergence.
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#' u <- make.dpois
+#' b <- c(1, 1, 1, 1)
 #'
 #' @export
-em.fit_pracma <- function(u, b, x, y, class_probs, weight, tol=1e-8, debug = F, family=poisson(), maxiter=Inf){
+em.fit_pracma <- function(u, b, x, y, class_probs, weight, tol=1e-8, debug = FALSE, family=poisson(), maxiter=Inf){
 
   e <- 10
   round <- 0
@@ -41,9 +46,16 @@ em.fit_pracma <- function(u, b, x, y, class_probs, weight, tol=1e-8, debug = F, 
 #' Carry our the Newton-Raphson optimization of the parameters for given weights via numeric approximations,
 #' @inheritParams em.fit_pracma
 #' @return The parameter values on convergence.
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#' u <- make.dpois(x, y)
+#' b <- c(1, 1, 1, 1)
+#' cp <- rep(1, 54)
+#' em.fit_numeric(b = b, x=x, y=y, class_probs = cp)
 #'
 #' @export
-em.fit_numeric <- function(b, x, y, class_probs, weight=c(1), tol=1e-8, debug = F, family=poisson(), maxiter=Inf){
+em.fit_numeric <- function(b, x, y, class_probs, weight=c(1), tol=1e-8, debug = FALSE, family=poisson(), maxiter=Inf){
 
   e <- 10
   round <- 0

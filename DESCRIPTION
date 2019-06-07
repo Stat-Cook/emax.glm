@@ -3,9 +3,9 @@ Title: General Tools for Building GLM Expectation-Maximization Models
 Version: 0.1.2
 Authors@R: person("Robert M.", "Cook", email="robert.cook@bcu.ac.uk", role=c("aut", "cre"), comment = c(ORCID = "0000-0003-3343-8271"))
 Maintainer: Robert M. Cook <robert.cook@bcu.ac.uk>
-Description: Implementation of EM regression of general linear models.
+Description: Implementation of Expectation Maximization (EM) regression of general linear models.
     The package currently supports Poisson and Logistic regression with variable weights, with underlying theory included in the vignettes. 
-    New users are recommended to look at the 'em.glm' and 'small.em' functions- the outputs of which are supported by AIC, BIC,  and logLik calls.
+    New users are recommended to look at the 'em.glm()' and 'small.em()' functions - the outputs of which are supported by 'AIC()', 'BIC()',  and 'logLik()' calls.
     Several plot functions have been included for useful diagnostics and model exploration.
 License: GPL-3
 Encoding: UTF-8

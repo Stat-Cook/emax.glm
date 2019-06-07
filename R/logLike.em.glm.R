@@ -11,8 +11,8 @@ logLik.em.glm <- function(object, x, y, weight = c(1), ...){
   mu <- predict(object, x=x, y=y, weight=weight, type="rate")
 
   ll <- list(
-    "poisson" = function(y, mu, weight) dpois(y, weight * mu, log = T),
-    "binomial" = function(y, mu, weight) dbinom(y, weight, mu, log = T)
+    "poisson" = function(y, mu, weight) dpois(y, weight * mu, log = TRUE),
+    "binomial" = function(y, mu, weight) dbinom(y, weight, mu, log = TRUE)
   )
 
   dprob <- ll[[family$family]]

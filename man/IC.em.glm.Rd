@@ -9,7 +9,14 @@ IC.em.glm(em.glm, alpha)
 \arguments{
 \item{em.glm}{An emax glm fit.}
 
-\item{alpha}{Scaling factor for inforamtion criteria (2 or ln(\emph{n}) for AIC and BIC respectively).}
+\item{alpha}{Scaling factor for inforamtion criteria (2 or ln(\emph{n}) for AIC and BIC respectively).
+
+#' @examples
+y <- c(AirPassengers)
+n <- length(y)
+x <- as.matrix(rep(1, n))
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+IC(m, 2)}
 }
 \description{
 General Inforamtion Criteria function

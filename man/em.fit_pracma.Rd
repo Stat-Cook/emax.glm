@@ -4,8 +4,8 @@
 \alias{em.fit_pracma}
 \title{Carry our the Newton-Raphson optimization of the parameters for given weights via the \strong{pracma} hessian,}
 \usage{
-em.fit_pracma(u, b, x, y, class_probs, weight, tol = 1e-08, debug = F,
-  family = poisson(), maxiter = Inf)
+em.fit_pracma(u, b, x, y, class_probs, weight, tol = 1e-08,
+  debug = FALSE, family = poisson(), maxiter = Inf)
 }
 \arguments{
 \item{u}{A 'model.loglike' function.}

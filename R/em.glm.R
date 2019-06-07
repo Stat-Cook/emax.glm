@@ -19,12 +19,18 @@
 #' @param noise Standard deviation of the white noise to be applied when generating random initial states.
 #' @param debug Prints step-size in NR and re-weightign steps if TRUE.
 #' @return An 'em.glm' object containing the class parameters, and class weights.
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' summary(m)
+#'
 #' @export
 em.glm <- function(
   x, y, b.init = "random,", weight = c(1), K = 2,
   family=poisson, method="numeric", maxiter=50, maxiter.NR = Inf,
-  tol.1 = 1e-8, tol.2 = 1e-8, noise = 0.2, debug=F,
-  param_errors = F){
+  tol.1 = 1e-8, tol.2 = 1e-8, noise = 0.2, debug=FALSE,
+  param_errors = FALSE){
 
   round <- 0
   q <- dim(x)[2]

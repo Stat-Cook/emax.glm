@@ -28,7 +28,7 @@ set.seed(4002)
 
 At present the package is available in development state from GitHub:
 
-``` {r, eval = F}
+``` {r, eval = FALSE}
 install.packages("devtools")
 devtools::install_github("Stat-Cook/emax.glm")
 ```
@@ -37,7 +37,7 @@ devtools::install_github("Stat-Cook/emax.glm")
 
 The majority of the heavy lifting of the package relies on the  'em.glm' function.  The function requires a matrix of co-variates (*x*), a target vector (*y*), a GLM family (defaulting to *poisson()*) and the number of target classes (*K*).  Generally taking the form:
 
-``` {r, eval = F}
+``` {r, eval = FALSE}
 em.glm(
   x, y,
   family = poisson(),
@@ -47,7 +47,7 @@ em.glm(
 
 The maximization algorithm used here relies on local gradient descent and hence can struggle with local minima.  Generally we would counteract local minima by performing the fit from multiple starting states and comparing the finalized models however, the EM approach can be time consuming to converge.  The solution to this we supply here is the 'small.em' function which runs several early-stopping trials of the EM algorithm from varying starting states.  We can then take the optimal of these as the starting parameter space for the 'em.glm' command.  The work flow for this warm-up approach is:
 
-``` {r, eval = F}
+``` {r, eval = FALSE}
 warm.up <- small.em(
   x, y, 
   b.init = "random", K = K,
@@ -65,7 +65,7 @@ fit.K2 <-  em.glm(
 
 ## In practice
 
-``` {r, echo = F}
+``` {r, echo = FALSE}
 library(emax.glm)
 ```
 
@@ -81,7 +81,7 @@ y <- sim.2$data[, 6]
 pois.glm <- glm(y ~ . , data = sim.2$data, family = poisson())
 ``` 
 
-``` {r, echo = F, fig.height = 7, fig.width = 8, fig.cap = "Residual diagnostic plots for Poisson fit"}
+``` {r, echo = FALSE, fig.height = 7, fig.width = 8, fig.cap = "Residual diagnostic plots for Poisson fit"}
 {
   par(mfrow = c(2, 1))
   plot(
@@ -106,7 +106,7 @@ df <- sim.2$data
 x <- as.matrix(df[, 1:5])
 y <- df$y
 
-pois.em <- em.glm(x = x, y = y, K = 2, b.init = "random", param_errors = F)
+pois.em <- em.glm(x = x, y = y, K = 2, b.init = "random", param_errors = FALSE)
 dev.residuals <- residuals(pois.em, x = x, y = y, type = "deviance")
 kable(summary(pois.em))
 ```
@@ -144,7 +144,7 @@ kable(quality)
 
 Clearly the use of the EM approach relies on the analysts choice of how many underlying classes should be included (tuning $K$).  We have seen what might happen to the model if we fit with too few classes - but what about too many?
 
-Here we fit a second simulated data set, `{r, eval = F} sim.1` - similar to the previous behavior but with only a single underling Poisson process.  We first establish the true model:
+Here we fit a second simulated data set, `{r, eval = FALSE} sim.1` - similar to the previous behavior but with only a single underling Poisson process.  We first establish the true model:
 
 ``` {r , results = "asis"}
 pois.glm <- glm(y ~ ., data = sim.1$data, family = poisson())
@@ -171,7 +171,7 @@ pois.em <- em.glm(
 kable(summary(pois.em))
 ```
 
-``` {r, echo = F, fig.cap = "Single parameter set EM fit"}
+``` {r, echo = FALSE, fig.cap = "Single parameter set EM fit"}
 plot(pois.em, known_params = sim.1$params)
 ```
 

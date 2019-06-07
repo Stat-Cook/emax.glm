@@ -5,7 +5,7 @@
 \title{Plot fit-parameters and errrors}
 \usage{
 \method{plot}{em.glm}(x, known_params = NULL, plot_type = lines,
-  add = F, ...)
+  add = FALSE, ...)
 }
 \arguments{
 \item{x}{An em.glm fit object.}

@@ -70,7 +70,7 @@ em <- em.glm(
 
 and compare predicted (lines) and known (scatter) values:
 
-``` {r, echo = F, fig.height = 10, fig.cap = "Fitted Parameters and known values "}
+``` {r, echo = FALSE, fig.height = 10, fig.cap = "Fitted Parameters and known values "}
 {
   par(mfrow = c(2,1))
   plot(em, known_params = sim.3$p1)
