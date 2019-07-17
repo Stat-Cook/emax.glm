@@ -11,11 +11,14 @@
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
 \item{...}{other arguments.}
+}
+\value{
+The model deviance statistic.
 }
 \description{
 Model deviance (calculated from deviance residuals)

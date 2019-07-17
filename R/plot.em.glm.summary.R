@@ -3,6 +3,15 @@
 #' @param ...  Arguments to be passed to methods
 #' @return An R plot with error bars.
 #'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' m.sum <- summary(m)
+#'
+#' plot(m.sum)
+#'
 #' @export
 plot.em.glm.summary <- function(x, ...){
 
@@ -26,12 +35,20 @@ plot.em.glm.summary <- function(x, ...){
 
 }
 
-#' Plot fit-parameters and errrors
+#' Plot fit-parameters and errors
 #' @param x An em.glm fit object.
-#' @param  known_params Prior estiamtes of fit parameters for comparison.
-#' @param plot_type The plot type to diplay.  Defualts to lines, alternative include points.
-#' @param add Boolean flag to decide if the plot should be added to an existing diplayed plot object or create a new axes.
+#' @param  known_params Prior estimates of fit parameters for comparison.
+#' @param plot_type The plot type to display.  Defaults to lines, alternative include points.
+#' @param add Boolean flag to decide if the plot should be added to an existing displayed plot object or create a new axes.
 #' @inheritParams plot.em.glm.summary
+#'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#'
+#' plot(m)
 #'
 #' @export
 plot.em.glm <- function(x, known_params = NULL, plot_type = lines, add = FALSE, ...){
@@ -79,10 +96,16 @@ plot_probabilities <- function(...){
 
 #' Plot the class probabilities, both compared to data set index and as histogram.
 #' @param class_probabilities Matrix of n x K class probabilities
-#' @param ... Associated argumnets to be passed to plot::par function.
+#' @param ... Associated arguments to be passed to plot::par function.
 #'
 #' @export
 plot_probabilities.matrix <- function(class_probabilities, ...){
+  # Default par options back to the user settings:
+  opar <- par(no.readonly = TRUE)
+  on.exit(
+    par(opar)
+  )
+
   K <- dim(class_probabilities)[2]
 
   par(mfrow = c(K, 2), ...)
@@ -105,7 +128,15 @@ plot_probabilities.matrix <- function(class_probabilities, ...){
 
 #' Test Plot em.glm
 #' @param em.glm An em.glm object.  From em.fit
-#' @param ... Associated argumnets to be passed to plot::par function.
+#' @param ... Associated arguments to be passed to plot::par function.
+#'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#'
+#' plot_probabilities(m)
 #'
 #' @export
 plot_probabilities.em.glm <- function(em.glm, ...){

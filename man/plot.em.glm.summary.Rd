@@ -17,3 +17,13 @@ An R plot with error bars.
 \description{
 Error bar plot of coefficients and errors to inspect class overlap.
 }
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+m.sum <- summary(m)
+
+plot(m.sum)
+
+}

@@ -2,6 +2,15 @@
 #' @param object An em.glm object
 #' @param ... additional arguments affecting the summary produced
 #' @return List of each classes coefficients and errors.
+#'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#'
+#' summary(m)
+#'
 #' @export
 summary.em.glm <- function(object, ...){
 

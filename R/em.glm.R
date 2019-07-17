@@ -1,12 +1,14 @@
-#' Fit an Eexectation Maximization glm using the glm \emph{family} to define the link function.  Two methods of optimizationare included,
-#' using direct numeric approximations and using the \emph{pracma} package to gind the Hessian and Jacobian of the log-likelihood.  The number of
+#' Expectation Maximization glm.
+#'
+#' Fit an Expectation Maximization glm using the glm \emph{family} to define the link function.  Two methods of optimization are included,
+#' using direct numeric approximations and using the \emph{pracma} package to find the Hessian and Jacobian of the log-likelihood.  The number of
 #' competing models to be fit is set by \emph{K}.
 #'
 #' It is recommend users first call the \strong{em.small} command to run small warm up trails to explore the parameter space.
 #'
 #' @param x An \emph{n}-by-\emph{p} design matrix.
-#' @param y A vetor of observation of length \emph{n}.
-#' @param b.init The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and whie noise around GLM estiamtes.  Alternatively, pass a list of length K, each elelemtn consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.
+#' @param y A vector of observation of length \emph{n}.
+#' @param b.init The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and white noise around GLM estimates.  Alternatively, pass a list of length K, each element consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.
 #' @param weight A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.
 #' @param K Number of EM classes to be fit.
 #' @param family GLM family to fit.
@@ -17,13 +19,23 @@
 #' @param tol.1 Escape tolerance of the Newton-Raphson step.
 #' @param tol.2 Escape tolerance of the re-weighting step.
 #' @param noise Standard deviation of the white noise to be applied when generating random initial states.
-#' @param debug Prints step-size in NR and re-weightign steps if TRUE.
+#' @param debug Returns step-size in NR and re-weighting steps as a message if TRUE.
 #' @return An 'em.glm' object containing the class parameters, and class weights.
 #' @examples
 #' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
 #' y <- warpbreaks$breaks
 #' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
 #' summary(m)
+#'
+#' @references{
+#' \href{https://www.jstatsoft.org/v027/i08}{Zeileis et al (2008)} Regression Models for Count Data in R <doi:10.18637/jss.v027.i08>
+#'
+#' \href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{Hastie et al (2009)} The Elements of Statistical Learning Chapter 8.5 The EM Algorithm (2nd edition)  <doi:10.1007/978-0-387-21606-5_7>
+#'
+#' \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.28.613}{Jeff Bilmes (1998)} A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models}
+#'
+#' \href{http://www.jstor.org/stable/2984875}{Dempster et al (1977)} Maximum Likelihood from Incomplete Data via the EM Algorithm
+#'
 #'
 #' @export
 em.glm <- function(
@@ -50,12 +62,11 @@ em.glm <- function(
   if (is.function(family))
     family <- family()
   if (is.null(family$family)) {
-    print(family)
     stop("'family' not recognized")
   }
 
   dprob <- dprob.list[[family$family]](x=x, y=y, link=family$linkinv, weight=weight, log=FALSE)
-  if (is.null(dprob)) {stop("Family not implemented!")}
+  if (is.null(dprob)) {stop("'family' not implemented!")}
 
   # Initalize parameters -------------------------------------
 
@@ -86,7 +97,7 @@ em.glm <- function(
   ######
 
   while (e.t > tol.2 & round < maxiter){
-    if (debug) {print(paste("Error in t:", e.t))}
+    if (debug) {message(paste("Error in t:", e.t))}
 
     b.list <- fit.function(
       x=x, y=y,

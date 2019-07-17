@@ -7,10 +7,23 @@
 update_probabilities(dprob, params)
 }
 \arguments{
-\item{dprob}{Probabiltiy distribution function to call.  See 'dprob.list' for examples.}
+\item{dprob}{Probability distribution function to call.  See 'dprob.list' for examples.}
 
 \item{params}{List of class parameters.  Length of list is number of classes}
 }
+\value{
+A n-by-k matrix of class probabilities (each row normalized to 1).
+}
 \description{
 Construct normalized class properties for a given set of parameters
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+dprob <- make.dpois(x = x, y = y)
+params <- list(rep(1, 4))
+
+update_probabilities(dprob, params)
+
 }

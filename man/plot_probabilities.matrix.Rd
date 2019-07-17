@@ -9,7 +9,7 @@
 \arguments{
 \item{class_probabilities}{Matrix of n x K class probabilities}
 
-\item{...}{Associated argumnets to be passed to plot::par function.}
+\item{...}{Associated arguments to be passed to plot::par function.}
 }
 \description{
 Plot the class probabilities, both compared to data set index and as histogram.

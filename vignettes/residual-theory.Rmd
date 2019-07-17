@@ -29,7 +29,7 @@ The deviance residuals, $d_i$, are defined as:
 
 $$d_i = sign(y_i - \mu_i) \sqrt{2 \left( l_{sat.}(y_i) - l_{model}(y_i) \right) }$$
 
-where $l_{sat.}$ is the 'saturated model' such that each value of $\mu_i = y_i$ and $l_{model}$ is the  likelihood of $y_i$ for the predicted value of $\mu_i$.  We will not go into the relationship between $\mu_i$, the co-variates $X$, and the fit parameters $B$ here. 
+where $l_{sat.}$ is the 'saturated model' such that each value of $\mu_i = y_i$ and $l_{model}$ is the  likelihood of $y_i$ for the predicted value of $\mu_i$.  We will not go into the relationship between $\mu_i$, the covariates $X$, and the fit parameters $B$ here. 
 
 The deviance residuals are implemented as:
 
@@ -38,10 +38,10 @@ rho <- x %*% B
 mu <- family()$linkinv(rho)
 
 # Poisson deviance
-abs(y - w * mu) * sqrt(2 * (dpois(y, y, log = T) - dpois(y, w * mu, log = TRUE)))
+abs(y - w * mu) * sqrt(2 * (dpois(y, y, log = TRUE) - dpois(y, w * mu, log = TRUE)))
 
 # Binomial deviance
-abs(y - w * mu) * sqrt(2 * (dbinom(y, w, y / w, log = T) - dbinom(y, w, mu, log = TRUE)))
+abs(y - w * mu) * sqrt(2 * (dbinom(y, w, y / w, log = TRUE) - dbinom(y, w, mu, log = TRUE)))
 ```
 
 where `r 'x'` is the input data, `r 'B'` is the optimal parameters, `r 'w'` is the weights, `r 'y'` is the target values  and `r 'family'` is (currently) either `r 'poisson'` or `r 'binom'`.

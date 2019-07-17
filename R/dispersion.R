@@ -6,7 +6,9 @@
 #' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
 #' y <- warpbreaks$breaks
 #' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
-#' dispersion(m, x, y)
+#' dispersion(m, x, y, weight = c(1))
+#'
+#' @return A list of dispersion parameters for the model.
 #'
 #' @export
 dispersion <- function(em.glm, x, y, weight){

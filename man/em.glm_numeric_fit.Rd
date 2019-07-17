@@ -5,14 +5,14 @@
 \title{Numeric approximation routine}
 \usage{
 em.glm_numeric_fit(x, y, b.list, class_probs, weight = c(1), K = 2,
-  tol.1 = 1e-08, debug = T, family = poisson(), maxiter = Inf)
+  tol.1 = 1e-08, debug = TRUE, family = poisson(), maxiter = Inf)
 }
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
-\item{b.list}{List of K-classes each entry bign a k length parameter vector,}
+\item{b.list}{List of K-classes each entry being a k length parameter vector,}
 
 \item{class_probs}{Matrix (n x K) of normalized class probabilities.}
 
@@ -22,12 +22,25 @@ em.glm_numeric_fit(x, y, b.list, class_probs, weight = c(1), K = 2,
 
 \item{tol.1}{Tolerance of the NR minimization.}
 
-\item{debug}{Boolen flag. Turn on to print optimization steps.}
+\item{debug}{Boolen flag. Turn on to check optimization steps via messages.}
 
 \item{family}{GLM family to fit with.}
 
 \item{maxiter}{Maximum iterations of the NR methods for exiting before convergence.}
 }
+\value{
+A list of parameter values on convergence for each of k-classes.
+}
 \description{
 Numeric approximation routine
+}
+\examples{
+x <- model.matrix(~ 1 , data = warpbreaks)
+y <- warpbreaks$breaks
+
+b.list <- list(1, 1)
+class_probs = matrix(rep(0.5, 54*2), ncol = 2)
+
+em.glm_numeric_fit(x = x, y = y, b.list = b.list, class_probs = class_probs)
+
 }

@@ -1,6 +1,11 @@
 #' Method to initialize EM parameters.  Carries out a single GLM fit and applies random noise to form starting space.
 #' @inheritParams em.glm
 #' @return A K-length list, each holding parameters.
+#' @examples
+#' x <- model.matrix(~ 1 + factor(wool) + factor(tension), data = warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' init.fit(y = y, x = x, K = 2)
 #'
 #' @export
 init.fit <- function(y, x, K, weight = c(1), family=poisson(), noise = 1){
@@ -24,6 +29,11 @@ init.fit <- function(y, x, K, weight = c(1), family=poisson(), noise = 1){
 #'
 #' @inheritParams em.glm
 #' @return A K-length list, each holding parameters.
+#'
+#' @examples
+#' x <- model.matrix(~ 1 + factor(wool) + factor(tension), data = warpbreaks)
+#'
+#' init.random(x = x, K = 2)
 #'
 #' @export
 init.random <- function(x, K, noise = 1){

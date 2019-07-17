@@ -2,22 +2,18 @@
 % Please edit documentation in R/BIC.em.glm.R
 \name{IC.em.glm}
 \alias{IC.em.glm}
-\title{General Inforamtion Criteria function}
+\title{General Information Criteria function}
 \usage{
 IC.em.glm(em.glm, alpha)
 }
 \arguments{
 \item{em.glm}{An emax glm fit.}
 
-\item{alpha}{Scaling factor for inforamtion criteria (2 or ln(\emph{n}) for AIC and BIC respectively).
-
-#' @examples
-y <- c(AirPassengers)
-n <- length(y)
-x <- as.matrix(rep(1, n))
-m <- em.glm(x = x, y = y, K = 2, b.init = "random")
-IC(m, 2)}
+\item{alpha}{Scaling factor for information criteria (2 or ln(\emph{n}) for AIC and BIC respectively).}
+}
+\value{
+The IC value of the model for the given value of k.
 }
 \description{
-General Inforamtion Criteria function
+General Information Criteria function
 }

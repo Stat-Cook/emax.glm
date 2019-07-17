@@ -3,12 +3,12 @@
 \docType{data}
 \name{results_simple}
 \alias{results_simple}
-\title{Simualted data set}
+\title{Simulated data set}
 \format{An object of class \code{matrix} with 3 rows and 50 columns.}
 \usage{
 results_simple
 }
 \description{
-Simualted data set
+Simulated data set
 }
 \keyword{datasets}

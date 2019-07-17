@@ -9,8 +9,17 @@
 \arguments{
 \item{em.glm}{An em.glm object.  From em.fit}
 
-\item{...}{Associated argumnets to be passed to plot::par function.}
+\item{...}{Associated arguments to be passed to plot::par function.}
 }
 \description{
 Test Plot em.glm
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+
+plot_probabilities(m)
+
 }

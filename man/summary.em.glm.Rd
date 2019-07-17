@@ -17,3 +17,12 @@ List of each classes coefficients and errors.
 \description{
 Summarize EM glm coefficients.
 }
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+
+summary(m)
+
+}

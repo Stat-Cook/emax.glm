@@ -10,17 +10,24 @@ make.logLike(x, y, weight = c(1), class_probs = c(1),
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
-\item{class_probs}{An \emph{n} length vecotr  of probabilties for the proposed model.}
+\item{class_probs}{An \emph{n} length vector  of probabilities for the proposed model.}
 
 \item{family}{The GLM family being considered.}
 }
 \value{
-A model likelihood function.  Expects one argument which is a *p* length vector of parameters.
+A model-likelihood function.  Expects one argument which is a *p* length vector of parameters.
 }
 \description{
 Construct a log-likelihood function in the parameters b, for the given link family.
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+make.logLike(x, y)
+
 }

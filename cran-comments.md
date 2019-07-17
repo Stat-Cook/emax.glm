@@ -16,4 +16,4 @@ Please add small executable examples in your Rd-files.
 
 If there are references describing the methods in your package, please add these in the description field of your DESCRIPTION file in the form authors (year) <doi:...> authors (year) <arXiv:...> authors (year, ISBN:...) with no space after 'doi:', 'arXiv:' and angle brackets for auto-linking.
 
-## 
+### 

@@ -5,6 +5,14 @@
 #' @param type Residual type - either deviance or Pearson's residuals.
 #' @return An n length vector of residuals.
 #'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#'
+#' residuals(m, x = x, y = y)
+#'
 #' @export
 residuals.em.glm <- function(object, x, y, weight = c(1), type="deviance", ...){
 
@@ -32,6 +40,7 @@ residuals.em.glm <- function(object, x, y, weight = c(1), type="deviance", ...){
 #' Model deviance (calculated from deviance residuals)
 #' @inheritParams residuals.em.glm
 #' @inheritParams stats::deviance
+#' @return The model deviance statistic.
 #'
 #' @export
 deviance.em.glm <- function(object, x, y, weight = c(1), ...){

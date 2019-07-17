@@ -7,6 +7,8 @@
 #' y <- warpbreaks$breaks
 #' make.dpois(x, y)
 #'
+#' @return A function to  calculate (log) likelihood for a given set of parameters under a Poisson model.
+#'
 #' @export
 make.dpois <- function(x, y, linkinv=poisson()$linkinv, weight = c(1), log=FALSE){
   function(params){
@@ -24,6 +26,8 @@ make.dpois <- function(x, y, linkinv=poisson()$linkinv, weight = c(1), log=FALSE
 #' y <- warpbreaks$breaks
 #' make.dbinom(x, y)
 #'
+#' @return A function to  calculate (log) likelihood for a given set of parameters under a Binomial model.
+#'
 #' @export
 make.dbinom <- function(x, y, linkinv=binomial()$linkinv, weight = 1, log=FALSE){
   function(params){
@@ -34,7 +38,7 @@ make.dbinom <- function(x, y, linkinv=binomial()$linkinv, weight = 1, log=FALSE)
   }
 }
 
-#' List of distirbution functions accesed by family name ("poisson" or "binomial").
+#' List of distribution functions accessed by family name ("poisson" or "binomial").
 #'
 #' @export
 dprob.list <- list(
