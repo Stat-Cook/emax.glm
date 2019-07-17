@@ -11,10 +11,20 @@ dispersion(em.glm, x, y, weight)
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 }
+\value{
+A list of dispersion parameters for the model.
+}
 \description{
 Pearson-based dispersion  measurements of an 'em.glm' model.
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+dispersion(m, x, y, weight = c(1))
+
 }

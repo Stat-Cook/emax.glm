@@ -12,9 +12,9 @@ small.em(x, y, b.init = "fit", weight = c(1), K = 2, maxiter = 5,
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
-\item{b.init}{The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and whie noise around GLM estiamtes.  Alternatively, pass a list of length K, each elelemtn consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.}
+\item{b.init}{The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and white noise around GLM estimates.  Alternatively, pass a list of length K, each element consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
@@ -32,7 +32,7 @@ small.em(x, y, b.init = "fit", weight = c(1), K = 2, maxiter = 5,
 
 \item{repeats}{Number of repetitions of the initialization to make.}
 
-\item{debug}{Prints step-size in NR and re-weightign steps if TRUE.}
+\item{debug}{Returns step-size in NR and re-weighting steps as a message if TRUE.}
 
 \item{family}{GLM family to fit.}
 

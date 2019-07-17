@@ -2,7 +2,7 @@
 % Please edit documentation in R/BIC.em.glm.R
 \name{AIC.em.glm}
 \alias{AIC.em.glm}
-\title{Calcualte the AIC of the em.glm model}
+\title{Calculate the AIC of the em.glm model}
 \usage{
 \method{AIC}{em.glm}(object, ..., k = 2)
 }
@@ -16,13 +16,15 @@
 }
 \value{
 The AIC score of the model.
-#' @examples
+}
+\description{
+Calculate the AIC of the em.glm model
+}
+\examples{
 y <- c(AirPassengers)
 n <- length(y)
 x <- as.matrix(rep(1, n))
 m <- em.glm(x = x, y = y, K = 2, b.init = "random")
 AIC(m)
-}
-\description{
-Calcualte the AIC of the em.glm model
+
 }

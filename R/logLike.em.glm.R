@@ -3,6 +3,14 @@
 #' @param ... optionally more fitted model objects.
 #' @inheritParams em.glm
 #'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' logLik(m, x, y)
+#'
+#' @return The log-likelihood of y given the model and x.
+#'
 #' @export
 logLik.em.glm <- function(object, x, y, weight = c(1), ...){
 

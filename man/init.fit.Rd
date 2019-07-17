@@ -7,7 +7,7 @@
 init.fit(y, x, K, weight = c(1), family = poisson(), noise = 1)
 }
 \arguments{
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
@@ -24,4 +24,11 @@ A K-length list, each holding parameters.
 }
 \description{
 Method to initialize EM parameters.  Carries out a single GLM fit and applies random noise to form starting space.
+}
+\examples{
+x <- model.matrix(~ 1 + factor(wool) + factor(tension), data = warpbreaks)
+y <- warpbreaks$breaks
+
+init.fit(y = y, x = x, K = 2)
+
 }

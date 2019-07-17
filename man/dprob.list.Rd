@@ -3,12 +3,12 @@
 \docType{data}
 \name{dprob.list}
 \alias{dprob.list}
-\title{List of distirbution functions accesed by family name ("poisson" or "binomial").}
+\title{List of distribution functions accessed by family name ("poisson" or "binomial").}
 \format{An object of class \code{list} of length 2.}
 \usage{
 dprob.list
 }
 \description{
-List of distirbution functions accesed by family name ("poisson" or "binomial").
+List of distribution functions accessed by family name ("poisson" or "binomial").
 }
 \keyword{datasets}

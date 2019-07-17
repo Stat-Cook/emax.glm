@@ -14,9 +14,9 @@ em.fit_pracma(u, b, x, y, class_probs, weight, tol = 1e-08,
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
-\item{class_probs}{An \emph{n} length vecotr  of probabilties for the proposed model.}
+\item{class_probs}{An \emph{n} length vector  of probabilities for the proposed model.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
@@ -33,4 +33,14 @@ The parameter values on convergence.
 }
 \description{
 Carry our the Newton-Raphson optimization of the parameters for given weights via the \strong{pracma} hessian,
+}
+\examples{
+x <- model.matrix(~ 1 + factor(wool) + factor(tension), data = warpbreaks)
+y <- warpbreaks$breaks
+class_probs = rep(1,54)
+b <- c(1, 1, 1, 1)
+
+u <- make.logLike(x, y, class_probs = class_probs)
+
+em.fit_pracma(u, b, x, y, class_probs, weight = c(1))
 }

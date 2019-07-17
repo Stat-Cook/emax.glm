@@ -11,12 +11,22 @@
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
 \item{...}{optionally more fitted model objects.}
 }
+\value{
+The log-likelihood of y given the model and x.
+}
 \description{
 Calculate log-likelihood of the EM model.
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+logLik(m, x, y)
+
 }

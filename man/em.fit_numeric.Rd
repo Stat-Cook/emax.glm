@@ -12,9 +12,9 @@ em.fit_numeric(b, x, y, class_probs, weight = c(1), tol = 1e-08,
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
-\item{class_probs}{An \emph{n} length vecotr  of probabilties for the proposed model.}
+\item{class_probs}{An \emph{n} length vector  of probabilities for the proposed model.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
@@ -27,8 +27,17 @@ em.fit_numeric(b, x, y, class_probs, weight = c(1), tol = 1e-08,
 \item{maxiter}{Maximum number of NR steps to take.}
 }
 \value{
-The parameter values on convergence.
+A vector of parameter values on convergence.
 }
 \description{
 Carry our the Newton-Raphson optimization of the parameters for given weights via numeric approximations,
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+u <- make.dpois(x, y)
+b <- c(1, 1, 1, 1)
+class_probs <- rep(1, 54)
+em.fit_numeric(b = b, x=x, y=y, class_probs = class_probs)
+
 }

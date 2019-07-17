@@ -12,7 +12,7 @@ make_param_errors(params, x, y, weight, family = poisson(),
 
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
@@ -22,6 +22,17 @@ make_param_errors(params, x, y, weight, family = poisson(),
 
 \item{dispersion}{Model dispersion parameter for over/ under-dispersed models.  Defaults to 1.}
 }
+\value{
+Calculate the errors associated with each set of parameters.
+}
 \description{
 Calculate parameter errors via inversion of the Hessian matrix (either pracma or numeric approximations).
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+make_param_errors(m$params, x = x, y = y ,weight = c(1))
+
 }

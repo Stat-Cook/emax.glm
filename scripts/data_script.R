@@ -45,7 +45,7 @@
 #     rnorm(n * k),
 #     ncol = k
 #   )
-#   exposure <- sample(10:30, n, replace=T)
+#   exposure <- sample(10:30, n, replace=TRUE)
 #
 #   p1 <- rnorm(k, 0, 0.5)
 #   p2 <- rnorm(k, 0, 0.5)
@@ -67,6 +67,6 @@
 #
 #   sim.3 <- list(x= X, y = Y, exposure = exposure, p1 = p1, p2 = p2)
 #
-#   usethis::use_data(sim.3, overwrite = T)
+#   usethis::use_data(sim.3, overwrite = TRUE)
 # }
 #

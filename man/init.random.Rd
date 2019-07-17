@@ -19,3 +19,9 @@ A K-length list, each holding parameters.
 \description{
 Method to initialize EM parameters.  Purely standard normal noise.
 }
+\examples{
+x <- model.matrix(~ 1 + factor(wool) + factor(tension), data = warpbreaks)
+
+init.random(x = x, K = 2)
+
+}

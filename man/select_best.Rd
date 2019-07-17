@@ -19,3 +19,12 @@ Select the best parameters from a set of results
 
 Return the optimal model based on BIC scores
 }
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+
+warm_up <- small.em(x = x, y = y, K = 2, b.init = "random", sample.size = 20)
+
+select_best(warm_up)
+
+}

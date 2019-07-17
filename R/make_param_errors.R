@@ -3,6 +3,15 @@
 #' @inheritParams em.glm
 #' @param dispersion Model dispersion parameter for over/ under-dispersed models.  Defaults to 1.
 #'
+#' @examples
+#' x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+#' y <- warpbreaks$breaks
+#'
+#' m <- em.glm(x = x, y = y, K = 2, b.init = "random")
+#' make_param_errors(m$params, x = x, y = y ,weight = c(1))
+#'
+#' @return Calculate the errors associated with each set of parameters.
+#'
 #' @export
 make_param_errors <- function(params, x, y, weight, family=poisson(), method="numeric", dispersion = 1){
 

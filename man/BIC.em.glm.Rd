@@ -2,7 +2,7 @@
 % Please edit documentation in R/BIC.em.glm.R
 \name{BIC.em.glm}
 \alias{BIC.em.glm}
-\title{Calcualte the BIC of the em.glm model}
+\title{Calculate the BIC of the em.glm model}
 \usage{
 \method{BIC}{em.glm}(object, ...)
 }
@@ -15,7 +15,7 @@
 The BIC score of the model.
 }
 \description{
-Calcualte the BIC of the em.glm model
+Calculate the BIC of the em.glm model
 }
 \examples{
 y <- c(AirPassengers)

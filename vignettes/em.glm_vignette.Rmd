@@ -35,7 +35,7 @@ devtools::install_github("Stat-Cook/emax.glm")
 
 ## Quick Start
 
-The majority of the heavy lifting of the package relies on the  'em.glm' function.  The function requires a matrix of co-variates (*x*), a target vector (*y*), a GLM family (defaulting to *poisson()*) and the number of target classes (*K*).  Generally taking the form:
+The majority of the heavy lifting of the package relies on the  'em.glm' function.  The function requires a matrix of covariates (*x*), a target vector (*y*), a GLM family (defaulting to *poisson()*) and the number of target classes (*K*).  Generally taking the form:
 
 ``` {r, eval = FALSE}
 em.glm(

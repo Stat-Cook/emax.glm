@@ -10,7 +10,7 @@ make.dbinom(x, y, linkinv = binomial()$linkinv, weight = 1,
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
 \item{linkinv}{Inverse link function desired}
 
@@ -18,6 +18,15 @@ make.dbinom(x, y, linkinv = binomial()$linkinv, weight = 1,
 
 \item{log}{Boolean flag.  If TRUE returns the log dist.}
 }
+\value{
+A function to  calculate (log) likelihood for a given set of parameters under a Binomial model.
+}
 \description{
 Build a Binomial log likelihood
+}
+\examples{
+x <- model.matrix(~ factor(wool) + factor(tension), warpbreaks)
+y <- warpbreaks$breaks
+make.dbinom(x, y)
+
 }

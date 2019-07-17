@@ -3,12 +3,12 @@
 \docType{data}
 \name{data.1}
 \alias{data.1}
-\title{Simualted data set}
+\title{Simulated data set}
 \format{An object of class \code{list} of length 3.}
 \usage{
 data.1
 }
 \description{
-Simualted data set
+Simulated data set
 }
 \keyword{datasets}

@@ -2,9 +2,7 @@
 % Please edit documentation in R/em.glm.R
 \name{em.glm}
 \alias{em.glm}
-\title{Fit an Eexectation Maximization glm using the glm \emph{family} to define the link function.  Two methods of optimizationare included,
-using direct numeric approximations and using the \emph{pracma} package to gind the Hessian and Jacobian of the log-likelihood.  The number of
-competing models to be fit is set by \emph{K}.}
+\title{Expectation Maximization glm.}
 \usage{
 em.glm(x, y, b.init = "random,", weight = c(1), K = 2,
   family = poisson, method = "numeric", maxiter = 50,
@@ -14,9 +12,9 @@ em.glm(x, y, b.init = "random,", weight = c(1), K = 2,
 \arguments{
 \item{x}{An \emph{n}-by-\emph{p} design matrix.}
 
-\item{y}{A vetor of observation of length \emph{n}.}
+\item{y}{A vector of observation of length \emph{n}.}
 
-\item{b.init}{The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and whie noise around GLM estiamtes.  Alternatively, pass a list of length K, each elelemtn consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.}
+\item{b.init}{The method to initialize EM parameters.  Built in methods are "random" and "fit" for pure white noise, and white noise around GLM estimates.  Alternatively, pass a list of length K, each element consisting of a vector of length \emph{p}.  Users can also pass a zero-argument function to produce starting states.}
 
 \item{weight}{A \emph{n} length vector of observation weight terms.  This is currently designed to be either the exposure for a Poisson model or the number of trials for a Logistic model.}
 
@@ -36,7 +34,7 @@ em.glm(x, y, b.init = "random,", weight = c(1), K = 2,
 
 \item{noise}{Standard deviation of the white noise to be applied when generating random initial states.}
 
-\item{debug}{Prints step-size in NR and re-weightign steps if TRUE.}
+\item{debug}{Returns step-size in NR and re-weighting steps as a message if TRUE.}
 
 \item{param_errors}{Bool flag - set to TRUE to calculate parameter errors.}
 }
@@ -44,6 +42,11 @@ em.glm(x, y, b.init = "random,", weight = c(1), K = 2,
 An 'em.glm' object containing the class parameters, and class weights.
 }
 \description{
+Fit an Expectation Maximization glm using the glm \emph{family} to define the link function.  Two methods of optimization are included,
+using direct numeric approximations and using the \emph{pracma} package to find the Hessian and Jacobian of the log-likelihood.  The number of
+competing models to be fit is set by \emph{K}.
+}
+\details{
 It is recommend users first call the \strong{em.small} command to run small warm up trails to explore the parameter space.
 }
 \examples{
@@ -52,4 +55,14 @@ y <- warpbreaks$breaks
 m <- em.glm(x = x, y = y, K = 2, b.init = "random")
 summary(m)
 
+}
+\references{
+{
+\href{https://www.jstatsoft.org/v027/i08}{Zeileis et al (2008)} Regression Models for Count Data in R <doi:10.18637/jss.v027.i08>
+
+\href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{Hastie et al (2009)} The Elements of Statistical Learning Chapter 8.5 The EM Algorithm (2nd edition)  <doi:10.1007/978-0-387-21606-5_7>
+
+\href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.28.613}{Jeff Bilmes (1998)} A Gentle Tutorial of the EM Algorithm and its Application to Parameter Estimation for Gaussian Mixture and Hidden Markov Models}
+
+\href{http://www.jstor.org/stable/2984875}{Dempster et al (1977)} Maximum Likelihood from Incomplete Data via the EM Algorithm
 }
