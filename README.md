@@ -3,7 +3,13 @@ Expectation Maximization General Linear Modelling Tools in R
 
 ## Installation
 
-The project is currently being added to CRAN.  In the mean time work with the development version:
+The project is available on CRAN.
+
+``` R
+install.packages("emax.glm")
+```
+
+Or the development version can be downloaded directly:
 
 ``` R
 # install.packages("devtools")
